@@ -71,6 +71,7 @@ public class UserDaoHibernateImpl  implements UserDao {
             User user = new User(name,lastName,age);
             session.save(user);
             transaction.commit();
+          System.out.println(user.toString()+" добавлен в базу данных");
         }catch (Exception e){
             if(transaction!=null){
                 transaction.rollback();
@@ -109,6 +110,9 @@ public class UserDaoHibernateImpl  implements UserDao {
          List<User> list = new ArrayList<>();
         try (Session session = sessionFactory.openSession()) {
             list = session.createQuery("FROM User", User.class).list();
+              for (User user:list){
+                System.out.println(user.toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
